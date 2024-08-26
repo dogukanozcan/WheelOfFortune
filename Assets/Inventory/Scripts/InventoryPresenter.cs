@@ -6,14 +6,14 @@ namespace Naku.InventorySystem
 {
     public class InventoryPresenter : MonoBehaviour
     {
-        [SerializeField] private Transform cellParent;
-        [SerializeField] private ItemCell cellPrefab;
+        [SerializeField] private Transform m_cellParent;
+        [SerializeField] private ItemCell m_cellPrefab;
 
         private List<ItemCell> m_inventoryCells;
 
         private void Awake()
         {
-            m_inventoryCells = cellParent.GetComponentsInChildren<ItemCell>().ToList();
+            m_inventoryCells = m_cellParent.GetComponentsInChildren<ItemCell>().ToList();
         }
 
         private void OnEnable()
@@ -54,7 +54,7 @@ namespace Naku.InventorySystem
 
         public void AddCellToInventory()
         {
-            var cell = Instantiate(cellPrefab, cellParent);
+            var cell = Instantiate(m_cellPrefab, m_cellParent);
             m_inventoryCells.Add(cell);
         }
 

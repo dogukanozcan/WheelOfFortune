@@ -36,7 +36,9 @@ namespace Naku.InventorySystem
         [ContextMenu("ItemClicked")]
         public void ItemClicked()
         {
-            GeneralSoundManager.Instance.GenericClick();
+            if(GeneralSoundManager.Instance)
+                GeneralSoundManager.Instance.GenericClick();
+
             if (attachedItem != null)
                 Inventory.Instance.RemoveItem(attachedItem);
         }

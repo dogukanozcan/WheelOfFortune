@@ -14,10 +14,6 @@ using Unity.Notifications.Android;
 
 namespace Naku.WheelOfFortune
 {
-    public class NetTime
-    {
-        public string currentLocalTime;
-    }
     [System.Serializable]
     public class CooldownTimer: MonoBehaviour 
     {
@@ -55,7 +51,7 @@ namespace Naku.WheelOfFortune
             m_cooldownAction = action;
             CooldownDoneTime = GetDateTime().Add(timeSpan);
          
-            NotificationCenter.Instance.SetSpinNotification(timeSpan);
+            NotificationMaster.Instance.SetSpinNotification(timeSpan);
 
             TimerChecker().Forget();
         }

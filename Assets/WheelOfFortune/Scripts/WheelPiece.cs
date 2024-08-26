@@ -3,6 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Naku.InventorySystem;
 
 namespace Naku.WheelOfFortune
 {
@@ -25,7 +26,7 @@ namespace Naku.WheelOfFortune
         {
             m_itemImage.sprite = itemStack.ItemSO.ItemSprite;
             m_itemNameLabel.text = itemStack.ItemSO.ItemName;
-            if(itemStack.StackCount>1) m_itemCountLabel.text = itemStack.StackCount.ToString();
+            if(itemStack.StackCount>1) m_itemCountLabel.text = "x" + itemStack.StackCount.ToString();
         }
 
         public void SetItemAreaRot()

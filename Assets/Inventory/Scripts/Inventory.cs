@@ -10,14 +10,24 @@ namespace Naku.InventorySystem
 {
     public class Inventory : MonoSingleton<Inventory>
     {
-        private string inventoryPath;
+        /// <summary>
+        /// Json save path
+        /// </summary>
+        private string m_inventoryPath;
+
+        /// <summary>
+        /// object to be converted to json and store
+        /// </summary>
         private InventoryData m_inventory = new InventoryData();
 
+        /// <summary>
+        /// Calls after AddItem or RemoveItem
+        /// </summary>
         public event Action<List<Item>> OnInventoryChanged;
 
         private void Awake()
         {
-            inventoryPath = Application.persistentDataPath + "/Inventory.json";
+            m_inventoryPath = Application.persistentDataPath + "/Inventory.json";
         }
         private void Start()
         {
@@ -81,19 +91,19 @@ namespace Naku.InventorySystem
             OnInventoryChanged?.Invoke(m_inventory.list);
         }
 
-        public void UpdateSave()
+        private void UpdateSave()
         {
             //Convert inventory to json and write to file system
             var json = JsonUtility.ToJson(m_inventory);
-            File.WriteAllText(inventoryPath, json);
+            File.WriteAllText(m_inventoryPath, json);
         }
 
-        public void LoadAll()
+        private void LoadAll()
         {
-            if (File.Exists(inventoryPath))
+            if (File.Exists(m_inventoryPath))
             {
                 //Read file
-                string loadPlayerData = File.ReadAllText(inventoryPath);
+                string loadPlayerData = File.ReadAllText(m_inventoryPath);
                 //Convert json to inventory
                 m_inventory = JsonUtility.FromJson<InventoryData>(loadPlayerData);
                 //Call OnInventoryChanged

@@ -22,27 +22,27 @@ public class AndroidNotificationManager : MonoBehaviour
         {
             Id = "spin_ready",
             Name = "Spin Ready",
-            Importance = Importance.Default,
+            Importance = Importance.High,
+            CanShowBadge = true,
+            EnableVibration = true,
+            EnableLights = true,
+            LockScreenVisibility = LockScreenVisibility.Public,
             Description = "Spin Ready",
         };
         AndroidNotificationCenter.RegisterNotificationChannel(channel);
     }
 
-    public void SendNotification(string title, string text, TimeSpan repeatTime)
+    public void SendNotification(string title, string text, string channel, TimeSpan repeatTime, bool repeat, int id)
     {
         var fireTime = DateTime.Now.Add(repeatTime);
         var notification = new AndroidNotification();
         notification.Title = title;
         notification.Text = text;
+        notification.FireTime = fireTime;
         notification.LargeIcon = "icon_0";
         notification.SmallIcon = "icon_1";
-        notification.FireTime = fireTime;
-        notification.ShowTimestamp = true;
-        notification.RepeatInterval = repeatTime;
-        Debug.Log("FireTime: " + DateTime.Now.Add(repeatTime).ToString("T"));
+        if (repeat) notification.RepeatInterval = repeatTime;
 
-     
-        AndroidNotificationCenter.SendNotification(notification, "spin_ready");
-
+        AndroidNotificationCenter.SendNotificationWithExplicitID(notification, channel, id);
     }
 }
