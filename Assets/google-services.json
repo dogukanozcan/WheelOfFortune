@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "989809736008",
+    "project_id": "wheeloffortune-c51fd",
+    "storage_bucket": "wheeloffortune-c51fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989809736008:android:212df4827c5eaa59169b7d",
+        "android_client_info": {
+          "package_name": "com.naku.WheelOfFortune"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3L6BwNUqDbPf2EfF6JVU_gtuywvzfS-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
