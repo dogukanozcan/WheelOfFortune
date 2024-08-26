@@ -24,6 +24,8 @@ namespace Naku.WheelOfFortune
         private const string server = "https://timeapi.io/api/timezone/zone?timeZone=UTC";
 
         private DateTime m_applicationStartTime;
+
+        // Load and save CooldownDoneTime
         private DateTime CooldownDoneTime { 
 
             get => DateTime.FromBinary(
@@ -42,16 +44,28 @@ namespace Naku.WheelOfFortune
 
         private async void Start()
         {
+            //Get UTC online time
             await AssignInternetTime();
+            //Start cooldown checker
             TimerChecker().Forget();
         }
+
+        //ReStart Timer AFTER SPIN
         public void ResetCooldown(Action action)
         {
             var timeSpan = new TimeSpan(hours, minutes, seconds);
             m_cooldownAction = action;
             CooldownDoneTime = GetDateTime().Add(timeSpan);
-         
-            NotificationMaster.Instance.SetSpinNotification(timeSpan);
+
+            if (NotificationMaster.Instance)
+            {
+                NotificationMaster.Instance.SetSpinNotification(timeSpan);
+            }
+            else
+            {
+                Debug.LogWarning("NotificationMaster Singleton not found!");
+            }
+          
 
             TimerChecker().Forget();
         }
@@ -68,6 +82,7 @@ namespace Naku.WheelOfFortune
         //LOOP
         public async UniTaskVoid TimerChecker()
         {
+            //Checks every seconds
             double secondsRemaining = double.MaxValue;
             while (secondsRemaining > 0) 
             {
@@ -85,6 +100,7 @@ namespace Naku.WheelOfFortune
                 await UniTask.WaitForSeconds(1);
             }
         }
+
         public async UniTask AssignInternetTime()
         {
             m_applicationStartTime = await GetDateFromInternet();

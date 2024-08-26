@@ -82,7 +82,15 @@ namespace Naku.WheelOfFortune
                 m_cooldown.ResetCooldown(() => m_wheelSpinner.CanSpin = true);
             }
 
-            Inventory.Instance.AddItem(reward);
+            if (Inventory.Instance)
+            {
+                Inventory.Instance.AddItem(reward);
+            }
+            else
+            {
+                Debug.LogWarning("Inventory Singleton not found!");
+            }
+            
         }
 
         //Instantiate pieces, set rotation and attach item to piece

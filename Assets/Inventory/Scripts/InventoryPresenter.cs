@@ -13,12 +13,25 @@ namespace Naku.InventorySystem
 
         private void Awake()
         {
+            if(m_cellParent == null)
+            {
+                Debug.LogError("CellParent not assigned!");
+                return;
+            }
             m_inventoryCells = m_cellParent.GetComponentsInChildren<ItemCell>().ToList();
         }
 
         private void OnEnable()
         {
-            Inventory.Instance.OnInventoryChanged += OnInventoryChanged;
+            if (Inventory.Instance)
+            {
+                Inventory.Instance.OnInventoryChanged += OnInventoryChanged;
+            }
+            else
+            {
+                Debug.LogWarning("Inventory Singleton not found!");
+            }
+                
         }
         private void OnDisable()
         {
